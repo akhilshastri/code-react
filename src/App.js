@@ -1,25 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import {useEffect, useState} from "react";
 
-function App() {
+function App() { // <=
+
+ const [display , setDisplay] = useState(0) ; // => [1st el, 2 elemnet]
+
+
+    useEffect(()=>{
+        const clenupId =  setInterval(()=>{
+            setDisplay( display + 1  );
+            console.log(display);
+        }, 1000) ;
+
+        return ()=>clearInterval(clenupId) ;
+    },[display]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      counter : { display }
     </div>
   );
+
 }
 
 export default App;
