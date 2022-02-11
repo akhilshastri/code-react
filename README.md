@@ -1,5 +1,6 @@
 # Customer List
 * useState
+* useEffect
 * fetch 
 * parent to child
 * child to parent
