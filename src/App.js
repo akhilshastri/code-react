@@ -1,26 +1,41 @@
 import './App.css';
+import CustomerList from "./CustomerList";
+import {getData} from "./util";
 import {useEffect, useState} from "react";
+import CustomerForm from "./CustomerForm";
+
+
+
+
 
 function App() { // <=
+    const [customers, setCustomers] = useState([]);
 
- const [display , setDisplay] = useState(0) ; // => [1st el, 2 elemnet]
+    function saveForm(customer){
+        alert('form saved' + customer);
 
+        setCustomers([
+            ...customers
+            ,{
+                "id": customers.length+1,
+                "name":customer
+            }
+        ])
+    }
 
     useEffect(()=>{
-        const clenupId =  setInterval(()=>{
-            setDisplay( display + 1  );
-            console.log(display);
-        }, 1000) ;
+        getData().then(data=>{
+            setCustomers(data) // <=
+        })
+    },[])
 
-        return ()=>clearInterval(clenupId) ;
-    },[display]);
-
-  return (
-    <div className="App">
-      counter : { display }
-    </div>
+  return (<>
+   <CustomerList data={customers} app/>
+   <CustomerList data={customers}/>
+   <CustomerList data={customers}/>
+   <CustomerForm onSave={saveForm}/>
+      </>
   );
-
 }
 
 export default App;
